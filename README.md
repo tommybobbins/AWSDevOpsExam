@@ -18,6 +18,14 @@ Revision notes for the AWS DevOps Exam 2019
  * Customer managed = Standalone policy created by user.
  * Inline policy = Embedded within User/Group/Role. When user/role/group is deleted, so is the policy.
  * AWS recommend Managed policies over Inline. Only use Inline when the policy will only ever need to be attached to a singular user, group or role.
+ * STS temporary credentials for access. STSAssumeRoleWithWebIdentity
+     * Assumed Role Name = ARN / Assumed Role ID (this is not an IAM role)
+     * Session Token *TEMP CREDENTIAL*
+     * Secret Access Key *TEMP CREDENTIAL*
+     * Expiration *TEMP CREDENTIAL*
+     * Access Key ID *TEMP CREDENTIAL*
+     * STS expiration is 15 minutes-> 36 hours
+
 
 
 ## EC2
@@ -67,7 +75,8 @@ Revision notes for the AWS DevOps Exam 2019
  * TTL can be used on an Item. Reduce storage cost. Set TTL on current epoch time field.
  * ProvisionedThroughpuExceeded - Request rate > Provisioned Read/Write capacity. SDK will automatically retry. If not using the SDK, then reduce request frequency or use exponential backoff (c.f. sshd). 
  * Exponential backoff improves flow control.
-
+ * Set smaller page size to reduce read load
+ * Encryption of Global Secondary Indexes is possible via Table Keys + AWS Owned CMK (Free) or AWS Managed CMK (£).
   
 ## Dynamo DB Streams
 
@@ -108,7 +117,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Then remove public access from bucket.
  * S3 used to have problems storing large amounts of files with sequential/alphabetical names as this was used to determine the storage partition. This is no longer the case, but it used to be recommended to hash the files and then name them hash-filename.
 
-## AWS lambda.
+## AWS Lambda.
 
  * Billed on the number of requests and the duration
  * Node, Java, Python, C#, GoLang.
@@ -128,7 +137,7 @@ Revision notes for the AWS DevOps Exam 2019
    * S3
    * SNS
    * SES
-   * CloudFormationa
+   * CloudFormation
    * CloudWatch Logs
    * CloudWatch Events
    * CodeCommit
@@ -154,12 +163,12 @@ Revision notes for the AWS DevOps Exam 2019
 
 ## AWS Step Functions
 
- * Used for workflow dependencies (c.f. IFTTT)
+ * Used for workflow dependencies (c.f. IFTTT). Retry and Reuse
  * Sequential steps - serial.
  * Branching steps - decision tree.
  * Parallel steps - Fan out.
  * For Application Integration, use step functions
- * Uses the concept of a state machine and allows serverless applications to be visualised. Each step can be triggered and tracked.
+ * Uses the concept of a state machine and allows serverless applications to be visualised. Each step can be triggered and tracked. Amazon state language. Start State/Final State.
  * Each state of each step is logged which allows diagnosis of what went wrong and where
 
 
@@ -227,12 +236,14 @@ Revision notes for the AWS DevOps Exam 2019
    * Rolling
    * Rolling with additional batches (partial number new servers deployed)
    * Immutable (new servers deployed)
- * Can be customised using yaml/json files 
+ * Can be customised using yaml/json files.
 
 
         .config/.ebextensions
         code/foo.py
         config/bar.ini
+
+ * ElasticBeanstalk - can use Packer to build custom ELB.
 
 ## Systems Manager Parameter store
  * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
@@ -286,6 +297,10 @@ Revision notes for the AWS DevOps Exam 2019
       aws deploy create-application --application-name mywebapp
       aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
 
+### CodeBuild
+
+ * Override build commands in codebuild either via buildspec.yml or buildSpecOverride.
+ * Lambda version is defined in appspec.yml
 
 ### Code Pipeline
  
@@ -322,13 +337,26 @@ Revision notes for the AWS DevOps Exam 2019
        Transform:
         Name:AWS:Include
         Parameters: Location: s3://bucketb/myfile.yml
+ * Fn:<something>
+ * Ref: 
 
 ## Web Identity Federation
 
  * Use Amazon, Facebook, Google to provide temporary access to AWS resources via Cognito.
- * Cognito User Pools - manage sign in/sign up
- * Cognito Identity Pools - user directories used to manage sign-up/sign-ina
+ * Cognito User Pools - User directories to manage sign in/sign up
+ * Cognito Identity Pools - Create unique identities for users and identify them with identity providers.
  * Cognito is an identity broker handling all interactions with Web Identiy Providers
  * Push synchornisation used to send silent push of user data updates to muliple devices associated with user.
  * Is associated via IAM
+ * 1. User <-> User pool <-> Google
+   2. User <-> identity pool
+   3. User <-> s3 access.
+ * Cognito streams contains the Cognito data.
+ 
+## AWS OpsWorks.
 
+ * Chef
+
+## AWS Lamdba Edge
+
+ * Customise content which CloudFront delivers.
