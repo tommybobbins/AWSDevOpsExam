@@ -14,6 +14,11 @@ Revision notes for the AWS DevOps Exam 2019
  * create policy documents
  * use more than one access key
  * Roles = Apply permissions to a service or user or AWS Account, Web identity, SAML
+ * Prebuilt managed = AWS Managed Policy. Immutable
+ * Customer managed = Standalone policy created by user.
+ * Inline policy = Embedded within User/Group/Role. When user/role/group is deleted, so is the policy.
+ * AWS recommend Managed policies over Inline. Only use Inline when the policy will only ever need to be attached to a singular user, group or role.
+
 
 ## EC2
  * Instance type: FIGHTDRMCPX
@@ -277,9 +282,10 @@ Revision notes for the AWS DevOps Exam 2019
  * In-place upgrade does not work for lambda.
  * Can be deployed on EC2 to bundle code (codedeploy-agent);
  
-    cd ~/webapp
-    aws deploy create-application --application-name mywebapp
-    aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+      cd ~/webapp
+      aws deploy create-application --application-name mywebapp
+      aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+
 
 ### Code Pipeline
  
@@ -287,4 +293,42 @@ Revision notes for the AWS DevOps Exam 2019
  * Can be automatically integrated with Cloudwatch to look for a trigger (S3 bucket change)
 
      
+### Docker and CodeBuild
+ 
+ * Codebuild pulls from CodeCommit and can deploy to ECS.
+
+     docker build -t myrepo
+     docker tag mydockerrepo:latest <tag>
+     docker push  # ECS Registry aka ECR
+
+ * ECS has host and destination portmapping.
+ * As an alternative, a buildspec.yml can be used and let codebuild do the heavy lifting.
+ * As a second alternative, the build commands can be put inside CodeBuild directly (c.f EC2 userdata).
+ * Full CodeBuild Log is in CloudWatch.
+ * There is an option to rollback on failure.
+ 
+## Serverless Application Model (SAM)
+
+ * This an extension to CloudFormation to define serverless applications and provision in CloudFormation
+
+      sam package # build and upload to S3
+      sam deploy # deploy from S3 to CF
+
+## CloudFormation 
+
+ * NestedStacks is possible through Resources/TemplateURL 
+ * Transforms - reuse code in S3, specify SAM
+ 
+       Transform:
+        Name:AWS:Include
+        Parameters: Location: s3://bucketb/myfile.yml
+
+## Web Identity Federation
+
+ * Use Amazon, Facebook, Google to provide temporary access to AWS resources via Cognito.
+ * Cognito User Pools - manage sign in/sign up
+ * Cognito Identity Pools - user directories used to manage sign-up/sign-ina
+ * Cognito is an identity broker handling all interactions with Web Identiy Providers
+ * Push synchornisation used to send silent push of user data updates to muliple devices associated with user.
+ * Is associated via IAM
 
