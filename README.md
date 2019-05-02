@@ -4,9 +4,11 @@ Revision notes for the AWS DevOps Exam 2019
 ## IAM
  * access key/secret access key are only shown at creation time
  * stored in ~/.aws/credentials
-    [default]
-    aws_access_key_id = your_access_key_id
-    aws_secret_access_key = your_secret_access_key
+
+        [default]
+        aws_access_key_id = your_access_key_id
+        aws_secret_access_key = your_secret_access_key
+
  * work on the principle of least privilege
  * create groups
  * create policy documents
@@ -25,7 +27,9 @@ Revision notes for the AWS DevOps Exam 2019
 
 ## aws CLI
  
- * aws s3 ls --filter
+ * aws <service> <command> <options>
+
+       aws s3 ls --filter
 
 ## Dynamo DB
 
@@ -55,3 +59,36 @@ Revision notes for the AWS DevOps Exam 2019
  * 5GB is the max PUT size.
 
 ## RDS 
+
+## CloudFront
+
+ * To prevent S3 bucket being accessed directly, then CF Restrict bucket access via Origin Acess Identity then update bucket policy. This creates a user in IAM which allows CF to access bucket.
+ * Signed URLs/Signed cookies - this allows individual URLS for members only/paid content.
+ * Then remove public access from bucket.
+ * S3 used to have problems storing large amounts of files with sequential/alphabetical names as this was used to determine the storage partition. This is no longer the case, but it used to be recommended to hash the files and then name them hash-filename.
+
+## AWS lambda.
+
+ * Billed on the number of requests and the duration
+ * Node, Java, Python, C#, GoLang.
+ * Scales out not up automically.
+ * Use AWS X-Ray to debug
+ * Region independent.
+ * Version control: Each lambda function has unique ARN. Qualified and Unqualified ARN. You can use the concept of an Alias, which you should point to $LATEST which then allows you to publish version from $LATEST in Blue/Green deployments etc. Qualified version will use $LATEST, unqualified will not. Versions are immutable.
+ * It is possible to split traffic using aliases, but not with $LATEST.
+ * Traffic can only be split two ways.
+
+## API Gateway
+
+ * Can have EC2, Lambda, DynamoDB as a backend.
+ * Restful API, Throttle requests, Can use API endpoint to different targets via variables.
+ * API Caching via TTL which can reduce Backend requests.
+ * same-origin-policy = prevent XSS
+ * CORS - prevent XSS. You can enable CORS on API Gateway for resources which are allowed to share.
+
+## AWS Step Functions
+
+ * Used for workflow dependencies (IFTTT)
+ * Sequential steps - serial.
+ * Branching steps - decision tree.
+ * Parallel steps - Fan out.
