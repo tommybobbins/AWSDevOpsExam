@@ -56,6 +56,7 @@ Revision notes for the AWS DevOps Exam 2019
                     "dynamodb:LeadingKeys": [
                         "${www.amazon.com:user_id}"
 
+ * Global Tables are used where multi-region is required (avoids replication). 
  * Indexes
    * Local secondary index. Can only be created when table created. Same partition key as table, but different sort key. Any queries using this sort key will be faster. Immutable. *LSII*
   * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*
@@ -119,11 +120,14 @@ Revision notes for the AWS DevOps Exam 2019
 
 ## AWS Lambda.
 
+ * Default runtime of 3s + 128MB
  * Billed on the number of requests and the duration
  * Node, Java, Python, C#, GoLang.
+ * Ensure that only include libraries that are required.
  * Scales out not up automically.
  * Use AWS X-Ray to debug
  * Region independent.
+ * Use a dead letter queue->SQS or SNS for failed invocations
  * Version control: Each lambda function has unique ARN. Qualified and Unqualified ARN. You can use the concept of an Alias, which you should point to $LATEST which then allows you to publish version from $LATEST in Blue/Green deployments etc. Qualified version will use $LATEST, unqualified will not. Versions are immutable.
  * It is possible to split traffic using aliases, but not with $LATEST.
  * Traffic can only be split two ways.
@@ -160,6 +164,7 @@ Revision notes for the AWS DevOps Exam 2019
    * 5000 requests/second concurrent
    * 10,000 requests/second steady-state
    * HTTP 429 status code is returned if these are exceeded.
+ * To interact with DynamoDB directly, an *Integration Request* is created.
 
 ## AWS Step Functions
 
@@ -221,9 +226,11 @@ Revision notes for the AWS DevOps Exam 2019
  * Kinesis streams Producers->Kinesis streams/shards->Consumers
  * Kinesis Firehose for data only
  * Kinesis Analytics
+ * Server-Side Encryption possible for Kinesis Streams
  * 1 shard, 5 TPS, up to 2MB/s reads
  * 1000 Records/Second can be written at up to 1MB/s
  * Firehose - no sharding or streams. Scales automatically. Populates S3. There is no retention window. Data is either analysed or sent to Redshift/S3/Elasticsearch
+ * You cannot guarantee the order of data except within a shard, not across shards.
  * Kinesis analytics - SQL queries on Firehose or Streams.
 
 ## Elastic Beanstalk
@@ -239,11 +246,13 @@ Revision notes for the AWS DevOps Exam 2019
  * Can be customised using yaml/json files.
 
 
-        .config/.ebextensions
+        .ebextensions/healthcheck.config
+        .ebextensions/etc
         code/foo.py
         config/bar.ini
 
  * ElasticBeanstalk - can use Packer to build custom ELB.
+ * Use Application Lifecycles to stop too many versions existing. You can end up hitting the application version limit if not.
 
 ## Systems Manager Parameter store
  * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
@@ -360,3 +369,7 @@ Revision notes for the AWS DevOps Exam 2019
 ## AWS Lamdba Edge
 
  * Customise content which CloudFront delivers.
+
+## Elastic Container Service
+
+ * Use security groups /VPCs to separate containers belonging to different projects..
