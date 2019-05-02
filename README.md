@@ -77,6 +77,25 @@ Revision notes for the AWS DevOps Exam 2019
  * Version control: Each lambda function has unique ARN. Qualified and Unqualified ARN. You can use the concept of an Alias, which you should point to $LATEST which then allows you to publish version from $LATEST in Blue/Green deployments etc. Qualified version will use $LATEST, unqualified will not. Versions are immutable.
  * It is possible to split traffic using aliases, but not with $LATEST.
  * Traffic can only be split two ways.
+ * Lambda Triggers
+   * ELB
+   * Cognito
+   * Lex/Alexa
+   * API GW
+   * CloudFront
+   * Kinesis Data Firehose
+   * S3
+   * SNS
+   * SES
+   * CloudFormationa
+   * CloudWatch Logs
+   * CloudWatch Events
+   * CodeCommit
+   * AWS Config
+ * Lambda Inputs
+   * Kinesis
+   * Dynamo DB
+   * SQS
 
 ## API Gateway
 
@@ -85,10 +104,32 @@ Revision notes for the AWS DevOps Exam 2019
  * API Caching via TTL which can reduce Backend requests.
  * same-origin-policy = prevent XSS
  * CORS - prevent XSS. You can enable CORS on API Gateway for resources which are allowed to share.
+ * Swagger 2.0 Defition files can be used to Import an API.
+ * SOAP is supported in Passthrough mode.
+ * API Throttling (default)
+   * 5000 requests/second concurrent
+   * 10,000 requests/second steady-state
+   * HTTP 429 status code is returned if these are exceeded.
 
 ## AWS Step Functions
 
- * Used for workflow dependencies (IFTTT)
+ * Used for workflow dependencies (c.f. IFTTT)
  * Sequential steps - serial.
  * Branching steps - decision tree.
  * Parallel steps - Fan out.
+ * For Application Integration, use step functions
+ * Uses the concept of a state machine and allows serverless applications to be visualised. Each step can be triggered and tracked.
+ * Each state of each step is logged which allows diagnosis of what went wrong and where
+
+
+## X-RAY
+
+ * Visualize serverless Requests and Responses
+ * Debug AWS Lamba
+ * Rich SDK which has an X-RAY Daemon, listening on UDP. Scripts and tools access this daemon which then feed into X-Ray API, X-Ray console.
+ * Inerceptors
+ * Handlers
+ * HTTP Client
+ * Integrates with ELB, Lambda, API Gateway, EC2, ELB
+ * Can generate sample traffic
+
