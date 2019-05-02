@@ -29,7 +29,7 @@ Revision notes for the AWS DevOps Exam 2019
  
  * aws <service> <command> <options>
 
-       aws s3 ls --filter
+       aws s3 ls s3://bobbinsbucket --summarize
 
 ## Dynamo DB
 
