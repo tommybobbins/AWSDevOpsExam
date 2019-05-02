@@ -33,11 +33,43 @@ Revision notes for the AWS DevOps Exam 2019
 
 ## Dynamo DB
 
- * Non-relational database. Collection=Table, Document=Row, Key value pairs=Fields.
- * Automated backups between 1 and 35 days. Transaction logs are stored, so recovery point objective is a second. 
- * Automated backups must be turned on for Read Replicas.
- * Snapshots are user initiated.
- * Encryption at rest provided via KMS. Needs to be enabled at creation time.
+ * SSD only, always stored in 3 AZs
+ * Can select eventually consistent reads (default) or Strongly consistent reads (ACID). Eventual reads has better performance.
+ * Non-relational database. Collection=Table, Document/Item=Row, Key value pairs=Fields. Atributes = Column of data. Supports JSON, HTML and XML data
+ * Partition key is hashed and provides the location of the data. It should always be unique.
+ * Composite key = partition key + sort key.
+ * Composite key is not unique.
+ * IAM condition to only grant access to the owner of the data is possible via the dynamodb:LeadingKeys. This condition key allows users to access only the items where the partition key value matches their user ID:
+                    "dynamodb:LeadingKeys": [
+                        "${www.amazon.com:user_id}"
+
+ * Indexes
+   * Local secondary index. Can only be created when table created. Same partition key as table, but different sort key. Any queries using this sort key will be faster. Immutable. *LSII*
+  * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*
+ * Query: query of the primary key + distinct value. Returns filtered items based on the partition key. 
+ * BatchGetItem (100 objects, up to 16MB)
+ * Scan: Dump of every item in the table, filtered after the fact.
+ * Read capacity units 4KB/s
+ * Write capacity units 1KB/s
+ * Round up first, then number of units (e.g. 17KB read needs 5 read units)
+ * Strongly consistent reads need all read capacity units, eventually consistent units get double. 
+ * Can use on-demand Dynamo DB capacity, but can cost more than correctly provisioning demand.
+ * DAX - Dynamo DB Accelerator / Cache. 10 x Read Performance, which is ideal for read heavy applicaitons for which eventual consistent reads are good enough. Not suitable for write intensive loads.
+ * Elasticache + DynamoDB:
+   * Lazy loading - Cache when required (c.f varnish).
+   * Write through - Cache when written through. Expensive in terms of write speed.
+ * DynamoDB Transactions allows ACID for Dynamo DB
+ * TTL can be used on an Item. Reduce storage cost. Set TTL on current epoch time field.
+ * ProvisionedThroughpuExceeded - Request rate > Provisioned Read/Write capacity. SDK will automatically retry. If not using the SDK, then reduce request frequency or use exponential backoff (c.f. sshd). 
+ * Exponential backoff improves flow control.
+
+  
+## Dynamo DB Streams
+
+ * Time ordered sequence of item level modifications (c.f binlogs).
+ * Primary key is recorded.
+ * Event Data is held for 24 hours.
+ * Can be used as a good event source for lambda. Look for changes which triggers a lamdba function.
 
 ## S3
 
@@ -59,6 +91,10 @@ Revision notes for the AWS DevOps Exam 2019
  * 5GB is the max PUT size.
 
 ## RDS 
+ * Automated backups must be turned on for Read Replicas.
+ * Snapshots are user initiated.
+ * Encryption at rest provided via KMS. Needs to be enabled at creation time.
+ * Automated backups between 1 and 35 days. Transaction logs are stored, so recovery point objective is a second. 
 
 ## CloudFront
 
@@ -132,4 +168,38 @@ Revision notes for the AWS DevOps Exam 2019
  * HTTP Client
  * Integrates with ELB, Lambda, API Gateway, EC2, ELB
  * Can generate sample traffic
+
+##KMS
+
+ * Encrpytion keys are regional
+ * Key material origin can be from KMS or External (customer provided)
+ * CMK = Customer Master Key (plaintext). Attributes, alias, creation date, description and key state. It can never be exported.
+ * API Calls
+   * aws kms encrypt --key-id=<> thing
+   * aws kms decrypt ....
+   * aws kms enable-key-rotation  # rotate keys
+   * aws kms re-encrypt # destroys plaintext
+ * Envelope enctyption. Master Key---encrypts--->[ Envelope key/Data Key ]---encryptes--->[[Data]]. The Envelope key is used to decrypt the data.
+
+## SQS
+ * Message queue which is Pulled from
+ * 256KB message
+ * Standard Queue. Unlimited TPS, any order and duplicates.
+ * FIFO queue. 300 TPS, sequential and unique.
+ * Visibiity timeout: How long message is visible after read. 30 seconds default. 12 hour max.
+ * Long polling: If queue is zero, don't tell the polling app until long poll timeout exceeded. Reduce CPU on polling requestor->saves money.
+
+## SNS
+ * Message queue which pushes.
+ * Pub/sub -> Topic subscription
+ * Fan out
+ * PAYG
+
+##SES
+ * Simple Email services
+ * Marketing mails outbound 
+ * Incoming mail can be stored in S3.
+
+##Kinesis 101
+ * Used for streaming data
 
