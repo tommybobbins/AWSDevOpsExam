@@ -224,9 +224,10 @@ Revision notes for the AWS DevOps Exam 2019
    * Immutable (new servers deployed)
  * Can be customised using yaml/json files 
 
-      .config/.ebextensions
-      code/foo.py
-      config/bar.ini
+
+        .config/.ebextensions
+        code/foo.py
+        config/bar.ini
 
 ## Systems Manager Parameter store
  * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
@@ -252,9 +253,9 @@ Revision notes for the AWS DevOps Exam 2019
      * AfterAllowTraffic
  * EC2 Appspec. yaml only. Version, OS, Files, Hooks. appspec.yml must be in root directory
 
-      appspec.yml
-      code/foo.py
-      config/bar.ini
+        appspec.yml
+        code/foo.py
+        config/bar.ini
  
 * EC2 Appspec Hooks:
      * BeforeBlockTraffic
@@ -280,7 +281,7 @@ Revision notes for the AWS DevOps Exam 2019
     aws deploy create-application --application-name mywebapp
     aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
 
-###Code Pipeline
+### Code Pipeline
  
  * Pulls together CodeCommit, CodeBuild, CodeDeploy, lamba, ELB, CloudFormation, Elastic Container Service, Github and Jenkins.
  * Can be automatically integrated with Cloudwatch to look for a trigger (S3 bucket change)
