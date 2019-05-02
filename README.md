@@ -25,8 +25,13 @@ Revision notes for the AWS DevOps Exam 2019
      * Expiration *TEMP CREDENTIAL*
      * Access Key ID *TEMP CREDENTIAL*
      * STS expiration is 15 minutes-> 36 hours
+ * Use this to convert Unauthorized Operation into plaintext:
 
+       aws sts decode-authorization-message
 
+ * For testing a custom policy, first get context keys then:
+
+       aws iam simulate-custom-policy
 
 ## EC2
  * Instance type: FIGHTDRMCPX
@@ -247,12 +252,12 @@ Revision notes for the AWS DevOps Exam 2019
 
 
         .ebextensions/healthcheck.config
-        .ebextensions/etc
         code/foo.py
         config/bar.ini
 
  * ElasticBeanstalk - can use Packer to build custom ELB.
  * Use Application Lifecycles to stop too many versions existing. You can end up hitting the application version limit if not.
+ * cron.yaml for periodic jobs
 
 ## Systems Manager Parameter store
  * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
@@ -315,6 +320,7 @@ Revision notes for the AWS DevOps Exam 2019
  
  * Pulls together CodeCommit, CodeBuild, CodeDeploy, lamba, ELB, CloudFormation, Elastic Container Service, Github and Jenkins.
  * Can be automatically integrated with Cloudwatch to look for a trigger (S3 bucket change)
+ * To run X-account, define CMK in KMS, add to pipeline, and add cross account role.
 
      
 ### Docker and CodeBuild
