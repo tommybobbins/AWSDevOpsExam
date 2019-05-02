@@ -197,11 +197,93 @@ Revision notes for the AWS DevOps Exam 2019
  * Fan out
  * PAYG
 
-##SES
+## SES
  * Simple Email services
  * Marketing mails outbound 
  * Incoming mail can be stored in S3.
 
-##Kinesis 101
- * Used for streaming data
+## Kinesis
+ * Used for streaming data (video/data)
+ * Kinesis streams Producers->Kinesis streams/shards->Consumers
+ * Kinesis Firehose for data only
+ * Kinesis Analytics
+ * 1 shard, 5 TPS, up to 2MB/s reads
+ * 1000 Records/Second can be written at up to 1MB/s
+ * Firehose - no sharding or streams. Scales automatically. Populates S3. There is no retention window. Data is either analysed or sent to Redshift/S3/Elasticsearch
+ * Kinesis analytics - SQL queries on Firehose or Streams.
+
+## Elastic Beanstalk
+ * No need to worry about provisioning infrastructure, deploy code. Autoscaling and RDS.
+ * Code stored in S3. 
+ * Be careful with RDS, since database is tied to deployment. Database deletion!
+ * To deploy separately, deploy and add security group to autoscaling group + pass connection string
+ * ELB Deployment policies:
+   * All at once - Outage
+   * Rolling
+   * Rolling with additional batches (partial number new servers deployed)
+   * Immutable (new servers deployed)
+ * Can be customised using yaml/json files 
+
+      .config/.ebextensions
+      code/foo.py
+      config/bar.ini
+
+## Systems Manager Parameter store
+ * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
+ * Name, Description, Value (string), String list, Secure string. Secure KMS string
+
+## CI/CD
+ * CI continuous integration. Building + Testing + Integrating code from disparate sources.
+ * CI Workflow: CodeRepo->BuildManagementSystem->AutomatedBuild->Test Framework->Unit/Functional/Integration tests->Deploy packaged apps->Environment
+ * CD Contiuous Delivery- push button to deploy code after test framework
+      Continuous Deployment - automate the button push based on the tests.a
+ * CodeCommit - AWS Gitlab
+ * CodeBuild - 
+
+### Code Deploy
+  Code Deploy is an automated deployment tool, which can use Jenkins, Github, pipeline, ansible, puppet, chef. Applies to EC2,lambda or on-premise. 
+ * Deployment:
+     * In-place.
+     * Blue/Green. Route traffic through new ELB change.
+     * Rolling update. Update one backend at a time.
+     * Deployment Group
+ * Lambda Appspec file, must be in root directory special file which tells codedeploy what to execute. yaml/json. Contains parameters for a deploment. Made up of Version, Resources, Hooks and Permissions. Hooks:
+     * BeforeAllowTraffc
+     * AfterAllowTraffic
+ * EC2 Appspec. yaml only. Version, OS, Files, Hooks. appspec.yml must be in root directory
+
+      appspec.yml
+      code/foo.py
+      config/bar.ini
+ 
+* EC2 Appspec Hooks:
+     * BeforeBlockTraffic
+     * BlockTraffic
+     * AfterBlockTraffic
+     * ApplicationStop
+     * DownloadBundle
+     * BeforeIntall
+     * Install
+     * AfterInstall
+     * ApplicationStart
+     * ValidateService
+     * BeforeAllowTraffic  (LB is registered below here)
+     * AllowTraffic
+     * AfterAllowTraffic
+   
+ * Revision consists of manifesto, appspec file, app files, executables, config which are placed into a bundle
+ * Applications have a unique id for Revision, deployent config and deployment group.
+ * In-place upgrade does not work for lambda.
+ * Can be deployed on EC2 to bundle code (codedeploy-agent);
+ 
+    cd ~/webapp
+    aws deploy create-application --application-name mywebapp
+    aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+
+###Code Pipeline
+ 
+ * Pulls together CodeCommit, CodeBuild, CodeDeploy, lamba, ELB, CloudFormation, Elastic Container Service, Github and Jenkins.
+ * Can be automatically integrated with Cloudwatch to look for a trigger (S3 bucket change)
+
+     
 
