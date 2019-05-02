@@ -175,10 +175,12 @@ Revision notes for the AWS DevOps Exam 2019
  * Key material origin can be from KMS or External (customer provided)
  * CMK = Customer Master Key (plaintext). Attributes, alias, creation date, description and key state. It can never be exported.
  * API Calls
-   * aws kms encrypt --key-id=<> thing
-   * aws kms decrypt ....
-   * aws kms enable-key-rotation  # rotate keys
-   * aws kms re-encrypt # destroys plaintext
+
+       aws kms encrypt --key-id=<> thing
+       aws kms decrypt ....
+       aws kms enable-key-rotation  # rotate keys
+       aws kms re-encrypt # destroys plaintext
+
  * Envelope enctyption. Master Key---encrypts--->[ Envelope key/Data Key ]---encryptes--->[[Data]]. The Envelope key is used to decrypt the data.
 
 ## SQS
