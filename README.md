@@ -32,6 +32,7 @@ Revision notes for the AWS DevOps Exam 2019
  * For testing a custom policy, first get context keys then:
 
        aws iam simulate-custom-policy
+ * Only time to use access keys/secret access keys is in development SDK.
 
 ## EC2
  * Instance type: FIGHTDRMCPX
@@ -65,7 +66,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Indexes
    * Local secondary index. Can only be created when table created. Same partition key as table, but different sort key. Any queries using this sort key will be faster. Immutable. *LSII*
   * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*
- * Query: query of the primary key + distinct value. Returns filtered items based on the partition key. 
+ * Query: query of the primary key + distinct value. Returns filtered items based on the partition key.  Specify partiton key name and value in the equality condition and also specify a key condition expression in the query.
  * BatchGetItem (100 objects, up to 16MB)
  * Scan: Dump of every item in the table, filtered after the fact.
  * Read capacity units 4KB/s
@@ -83,6 +84,8 @@ Revision notes for the AWS DevOps Exam 2019
  * Exponential backoff improves flow control.
  * Set smaller page size to reduce read load
  * Encryption of Global Secondary Indexes is possible via Table Keys + AWS Owned CMK (Free) or AWS Managed CMK (£).
+ * Projection expressions - return two attributes in a query.
+ * Strongly consistent reads don't use DAX (passes through).
   
 ## Dynamo DB Streams
 
@@ -111,6 +114,8 @@ Revision notes for the AWS DevOps Exam 2019
  * 5GB is the max PUT size.
 
 ## RDS 
+ * ETL are better suited to RDBMS
+ * Complex Join Operations are better suited to RDBMS than NoSQL/DynamoDB
  * Automated backups must be turned on for Read Replicas.
  * Snapshots are user initiated.
  * Encryption at rest provided via KMS. Needs to be enabled at creation time.
@@ -156,6 +161,7 @@ Revision notes for the AWS DevOps Exam 2019
    * Kinesis
    * Dynamo DB
    * SQS
+ * Lambd authorizers are to control access to the functions
 
 ## API Gateway
 
@@ -249,7 +255,7 @@ Revision notes for the AWS DevOps Exam 2019
    * Rolling
    * Rolling with additional batches (partial number new servers deployed)
    * Immutable (new servers deployed)
- * Can be customised using yaml/json files.
+ * Can be customised using yaml/json files. (EBEB)
 
 
         .ebextensions/healthcheck.config
@@ -259,6 +265,7 @@ Revision notes for the AWS DevOps Exam 2019
  * ElasticBeanstalk - can use Packer to build custom ELB.
  * Use Application Lifecycles to stop too many versions existing. You can end up hitting the application version limit if not.
  * cron.yaml for periodic jobs
+ * Can deploy docker containers.
 
 ## Systems Manager Parameter store
  * Anything needed by EC2, Lambda credentials can be stored in Systems Manager Parameter Store. 
@@ -279,10 +286,10 @@ Revision notes for the AWS DevOps Exam 2019
      * Blue/Green. Route traffic through new ELB change.
      * Rolling update. Update one backend at a time.
      * Deployment Group
- * Lambda Appspec file, must be in root directory special file which tells codedeploy what to execute. yaml/json. Contains parameters for a deploment. Made up of Version, Resources, Hooks and Permissions. Hooks:
+ * Lambda Appspec file, must be in root directory special file which tells codedeploy what to execute. yaml/json. Contains parameters for a deploment. Made up of Version, Resources, Hooks and Permissions. (CDAS) Hooks:
      * BeforeAllowTraffc
      * AfterAllowTraffic
- * EC2 Appspec. yaml only. Version, OS, Files, Hooks. appspec.yml must be in root directory
+ * EC2 Appspec yaml. Version, OS, Files, Hooks. appspec.yml must be in root directory
 
         appspec.yml
         code/foo.py
@@ -380,3 +387,7 @@ Revision notes for the AWS DevOps Exam 2019
 ## Elastic Container Service
 
  * Use security groups /VPCs to separate containers belonging to different projects..
+
+## Elasticache
+
+ * Cache Parameter Groups set size and memory of the instances.
