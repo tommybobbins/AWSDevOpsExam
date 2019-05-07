@@ -126,6 +126,7 @@ Revision notes for the AWS DevOps Exam 2019
 ## AWS Lambda.
 
  * Default runtime of 3s + 128MB
+ * Maximum runtime of 15m + 3GB
  * Billed on the number of requests and the duration
  * Node, Java, Python, C#, GoLang.
  * Ensure that only include libraries that are required.
