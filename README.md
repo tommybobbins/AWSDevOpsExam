@@ -400,6 +400,7 @@ Revision notes for the AWS DevOps Exam 2019
 ## AWS OpsWorks.
 
  * Chef
+ * Puppet
 
 ## AWS Lamdba Edge
 
