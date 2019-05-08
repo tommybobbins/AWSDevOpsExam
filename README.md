@@ -212,7 +212,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Integrates with ELB, Lambda, API Gateway, EC2, ELB
  * Can generate sample traffic
 
-##KMS
+## KMS
 
  * Encrpytion keys are regional
  * Key material origin can be from KMS or External (customer provided)
