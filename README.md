@@ -14,9 +14,9 @@ Revision notes for the AWS DevOps Exam 2019
  * create policy documents
  * use more than one access key
  * Roles = Apply permissions to a service or user or AWS Account, Web identity, SAML
- * Prebuilt managed = AWS Managed Policy. Immutable
- * Customer managed = Standalone policy created by user.
- * Inline policy = Embedded within User/Group/Role. When user/role/group is deleted, so is the policy.
+    * Prebuilt managed = AWS Managed Policy. Immutable
+    * Customer managed = Standalone policy created by user.
+    * Inline policy = Embedded within User/Group/Role. When user/role/group is deleted, so is the policy.
  * AWS recommend Managed policies over Inline. Only use Inline when the policy will only ever need to be attached to a singular user, group or role.
  * STS temporary credentials for access. STSAssumeRoleWithWebIdentity
      * Assumed Role Name = ARN / Assumed Role ID (this is not an IAM role)
@@ -64,15 +64,17 @@ Revision notes for the AWS DevOps Exam 2019
  * Composite key = partition key + sort key.
  * Composite key is not unique.
  * IAM condition to only grant access to the owner of the data is possible via the dynamodb:LeadingKeys. This condition key allows users to access only the items where the partition key value matches their user ID:
+
                     "dynamodb:LeadingKeys": [
                         "${www.amazon.com:user_id}"
 
  * Global Tables are used where multi-region is required (avoids replication). 
  * Indexes
    * Local secondary index. Can only be created when table created. Partition key must be the same as the table, but different sort key. Any queries using this sort key will be faster. Immutable. *LSII*
-  * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*. 
+   * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*. 
  * Query: query of the primary key + distinct value. Returns filtered items based on the partition key.  Specify partiton key name and value in the equality condition and also specify a key condition expression in the query.
  * BatchGetItem (100 objects, up to 16MB)
+ * *A projection expression* is a string that identifies the (single/multiple) attributes you want. To retrieve a single attribute specify it's name. For multiple attributes, the names must be comma-separated. 
  * Scan: Dump of every item in the table, filtered after the fact.
  * Read capacity units 4KB/s
  * Write capacity units 1KB/s
@@ -89,9 +91,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Exponential backoff improves flow control.
  * Set smaller page size to reduce read load
  * Encryption of Global Secondary Indexes is possible via Table Keys + AWS Owned CMK (Free) or AWS Managed CMK (£).
- * Projection expressions - return two attributes in a query.
  * Strongly consistent reads don't use DAX (passes through).
- * *A projection expression* is a string that identifies the attributes you want. To retrieve a single attribute specify it's name. For multiple attributes, the names must be comma-separated. 
  * To measure total capacity a query uses, set ReturnConsumedCapacity=TOTAL in the Query request.
   
 ## Dynamo DB Streams
