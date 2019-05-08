@@ -173,7 +173,8 @@ Revision notes for the AWS DevOps Exam 2019
    * Kinesis
    * Dynamo DB
    * SQS
- * Lambd authorizers are to control access to the functions
+ * Lambda authorizers are to control access to the functions
+ * Use CloudWatch Events to trigger a scheduled Lamdba event. (cf cron)
 
 ## API Gateway
 
@@ -189,6 +190,7 @@ Revision notes for the AWS DevOps Exam 2019
    * 10,000 requests/second steady-state
    * HTTP 429 status code is returned if these are exceeded.
  * To interact with DynamoDB directly, an *Integration Request* is created.
+ * Each time you update an API which includes modifications of methods, integrations, authorizers and anything else other than stage settings, you must redploy the API.
 
 ## AWS Step Functions
 
@@ -211,6 +213,7 @@ Revision notes for the AWS DevOps Exam 2019
  * HTTP Client
  * Integrates with ELB, Lambda, API Gateway, EC2, ELB
  * Can generate sample traffic
+ * _X_AMZN_TRACE_ID; AWS_XRAY_CONTEXT_MISSING; AWS_XRAY_DAEMON_ADDRESS
 
 ## KMS
 
@@ -253,7 +256,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Kinesis Firehose for data only
  * Kinesis Analytics
  * Server-Side Encryption possible for Kinesis Streams
- * 1 shard, 5 TPS, up to 2MB/s reads
+ * 1 shard, 5 TPS, up to 2MB/s reads. Number of shards depends on incoming write bandwidth and outgoing read bandwidth.
  * 1000 Records/Second can be written at up to 1MB/s
  * Firehose - no sharding or streams. Scales automatically. Populates S3. There is no retention window. Data is either analysed or sent to Redshift/S3/Elasticsearch
  * You cannot guarantee the order of data except within a shard, not across shards.
@@ -339,6 +342,7 @@ Revision notes for the AWS DevOps Exam 2019
 
  * Override build commands in codebuild either via buildspec.yml or buildSpecOverride.
  * Lambda version is defined in appspec.yml
+ * Can provide additional VPC-specific configuration information as part of the CodeBuild project (connect to RDS in a private subnet)
 
 ### Code Pipeline
  
@@ -396,6 +400,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Cognito streams contains the Cognito data.
  * AssumeRoleWithWebIdentiy - Cognito
  * AssumeRoleWithSAML - SAML authentication response.
+ * Can check for compromised credentials in the Advanced Security page.
  
 ## AWS OpsWorks.
 
