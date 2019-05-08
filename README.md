@@ -383,8 +383,8 @@ Revision notes for the AWS DevOps Exam 2019
 ## Web Identity Federation
 
  * Use Amazon, Facebook, Google to provide temporary access to AWS resources via Cognito.
- * Cognito User Pools - User directories to manage sign in/sign up
- * Cognito Identity Pools - Create unique identities for users and identify them with identity providers.
+ * User pool relats to the sign-up/sign in to the Application
+ * Identify pool maps the signed-in users to the temporary controlled access to AWS services in your account.
  * Cognito is an identity broker handling all interactions with Web Identiy Providers
  * Push synchornisation used to send silent push of user data updates to muliple devices associated with user.
  * Is associated via IAM
