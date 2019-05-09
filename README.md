@@ -74,7 +74,7 @@ Revision notes for the AWS DevOps Exam 2019
    * Global secondary index. Can be modified. Different partition key and sort key. *GSIM*. 
  * Query: query of the primary key + distinct value. Returns filtered items based on the partition key.  Specify partiton key name and value in the equality condition and also specify a key condition expression in the query.
  * BatchGetItem (100 objects, up to 16MB)
- * *A projection expression* is a string that identifies the (single/multiple) attributes you want. To retrieve a single attribute specify it's name. For multiple attributes, the names must be comma-separated. 
+ * *A projection expression* is a string that identifies the (single/multiple) attributes you want. To retrieve a single attribute specify the name. For multiple attributes, the names must be comma-separated. 
  * Scan: Dump of every item in the table, filtered after the fact.
  * Read capacity units 4KB/s
  * Write capacity units 1KB/s
