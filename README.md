@@ -113,7 +113,7 @@ Revision notes for the AWS DevOps Exam 2019
  * SSE-KMS - KMS Service + £ + CloudTrail Audit of key use.
  * SSE-C - Client provides key.
  * Client side encryption - encrypt before upload.
- * To enforce encryption, in PUT request, have a bucked policy looking for the following header: x-amz-server-side-encryption (xasse)
+ * To enforce encryption, in PUT request, have a bucket policy looking for the following header: x-amz-server-side-encryption (xasse)
    x-amz-server-side-encryption: AES256
    x-amz-server-side-encrpytion: ams:kms
  * CORS - Cross Origin Resouce sharing. Safely allow resource sharing by naming buckets which allow HTTP referer.
@@ -139,6 +139,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Default expiry of pre-signed URL=3600s
  * Then remove public access from bucket.
  * S3 used to have problems storing large amounts of files with sequential/alphabetical names as this was used to determine the storage partition. This is no longer the case, but it used to be recommended to hash the files and then name them hash-filename.
+ * Viewer Protocol Policy (VPP) provides HTTP->HTTPS redirection
 
 ## AWS Lambda.
 
@@ -227,7 +228,7 @@ Revision notes for the AWS DevOps Exam 2019
        aws kms enable-key-rotation  # rotate keys
        aws kms re-encrypt # destroys plaintext
 
- * Envelope enctyption. Master Key---encrypts--->[ Envelope key/Data Key ]---encryptes--->[[Data]]. The Envelope key is used to decrypt the data.
+ * Envelope enctyption. Master Key---encrypts--->[ Envelope key/Data Key ]---encrypts--->[[Data]]. The Envelope key is used to decrypt the data.
  * GenerateDataKey (generates plaintext)
  * GenerateDataKeyWithoutPlaintext
 
@@ -237,7 +238,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Standard Queue. Unlimited TPS, any order and duplicates.
  * FIFO queue. 300 TPS, sequential and unique.
  * Visibiity timeout: How long message is visible after read. 30 seconds default. 12 hour max.
- * Long polling: If queue is zero, don't tell the polling app until long poll timeout exceeded. Reduce CPU on polling requestor->saves money.
+ * Long polling: If queue is zero, hold open the polling app until long poll timeout exceeded. Reduce CPU on polling requestor->saves money.
 
 ## SNS
  * Message queue which pushes.
