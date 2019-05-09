@@ -91,7 +91,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Exponential backoff improves flow control.
  * Set smaller page size to reduce read load
  * Encryption of Global Secondary Indexes is possible via Table Keys + AWS Owned CMK (Free) or AWS Managed CMK (£).
- * Strongly consistent reads don't use DAX (passes through).
+ * Strongly consistent reads dont use DAX (passes through).
  * To measure total capacity a query uses, set ReturnConsumedCapacity=TOTAL in the Query request.
   
 ## Dynamo DB Streams
