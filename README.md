@@ -67,6 +67,7 @@ Revision notes for the AWS DevOps Exam 2019
 
                     "dynamodb:LeadingKeys": [
                         "${www.amazon.com:user_id}"
+                    ]
 
  * Global Tables are used where multi-region is required (avoids replication). 
  * Indexes
@@ -337,7 +338,7 @@ Revision notes for the AWS DevOps Exam 2019
  
       cd ~/webapp
       aws deploy create-application --application-name mywebapp
-      aws deploy push --applicaiton-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+      aws deploy push --application-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
 
 ### CodeBuild
 
