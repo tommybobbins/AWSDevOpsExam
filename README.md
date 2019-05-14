@@ -108,7 +108,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Eventual consistency for PUT overwrites/deletes.
  * S3 - One Zone IA is the same as IA but data is in one AZ only. Cost is 20% less than IA.
  * S3 Intelligent tiering. Logically moves data from IA to standard and back.
- * Obbject level logging. API activity versus CloudTrail costs.
+ * Object level logging. API activity versus CloudTrail costs.
  * S3 Bucket Policy: Principal=User,  Resource=ARN.
  * SSE-S3 - AES256, Key rotation.
  * SSE-KMS - KMS Service + £ + CloudTrail Audit of key use.
