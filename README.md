@@ -240,6 +240,7 @@ Revision notes for the AWS DevOps Exam 2019
  * FIFO queue. 300 TPS, sequential and unique.
  * Visibiity timeout: How long message is visible after read. 30 seconds default. 12 hour max.
  * Long polling: If queue is zero, hold open the polling app until long poll timeout exceeded. Reduce CPU on polling requestor->saves money.
+ * Delay queues let you postpone the delivery of new messages to a queue for a number of seconds. Minimum/Default = 0s, Maximum = 15s
 
 ## SNS
  * Message queue which pushes.
@@ -273,7 +274,7 @@ Revision notes for the AWS DevOps Exam 2019
  * To deploy separately, deploy and add security group to autoscaling group + pass connection string
  * ELB Deployment policies:
    * All at once - Outage
-   * Rolling
+   * Rolling - AKA In-Place
    * Rolling with additional batches (partial number new servers deployed)
    * Immutable (new servers deployed)
  * Can be customised using yaml/json files. (EBEB)
