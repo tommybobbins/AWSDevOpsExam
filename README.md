@@ -1,5 +1,6 @@
 # AWSDevOpsExam
-Revision notes for the AWS DevOps Exam 2019
+Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the material has already been covered in the AWS SA and AWS SO exams.
+
 
 ## IAM
  * access key/secret access key are only shown at creation time
@@ -88,7 +89,7 @@ Revision notes for the AWS DevOps Exam 2019
    * Write through - Cache when written through. Expensive in terms of write speed.
  * DynamoDB Transactions allows ACID for Dynamo DB
  * TTL can be used on an Item. Reduce storage cost. Set TTL on current epoch time field.
- * ProvisionedThroughpuExceeded - Request rate > Provisioned Read/Write capacity. SDK will automatically retry. If not using the SDK, then reduce request frequency or use exponential backoff (c.f. sshd). 
+ * ProvisionedThroughputExceeded - Request rate > Provisioned Read/Write capacity. SDK will automatically retry. If not using the SDK, then reduce request frequency or use exponential backoff (c.f. sshd). 
  * Exponential backoff improves flow control.
  * Set smaller page size to reduce read load
  * Encryption of Global Secondary Indexes is possible via Table Keys + AWS Owned CMK (Free) or AWS Managed CMK (£).
@@ -210,7 +211,7 @@ Revision notes for the AWS DevOps Exam 2019
  * Visualize serverless Requests and Responses
  * Debug AWS Lamba
  * Rich SDK which has an X-RAY Daemon, listening on UDP. Scripts and tools access this daemon which then feed into X-Ray API, X-Ray console.
- * Inerceptors
+ * Interceptors
  * Handlers
  * HTTP Client
  * Integrates with ELB, Lambda, API Gateway, EC2, ELB
@@ -278,7 +279,7 @@ Revision notes for the AWS DevOps Exam 2019
    * Rolling with additional batches (partial number new servers deployed)
    * Immutable (new servers deployed)
  * Can be customised using yaml/json files. (EBEB)
-
+ * Launch configuration OR Environment manifest file, specifies the instance type.
 
         .ebextensions/healthcheck.config
         code/foo.py
@@ -353,7 +354,6 @@ Revision notes for the AWS DevOps Exam 2019
  * Can be automatically integrated with Cloudwatch to look for a trigger (S3 bucket change)
  * To run X-account, define CMK in KMS, add to pipeline, and add cross account role.
 
-     
 ### Docker and CodeBuild
  
  * Codebuild pulls from CodeCommit and can deploy to ECS.
@@ -390,18 +390,18 @@ Revision notes for the AWS DevOps Exam 2019
 ## Web Identity Federation
 
  * Use Amazon, Facebook, Google to provide temporary access to AWS resources via Cognito.
- * User pool relats to the sign-up/sign in to the Application
+ * User pool relates to the sign-up/sign in to the Application
  * Identify pool maps the signed-in users to the temporary controlled access to AWS services in your account.
- * Cognito is an identity broker handling all interactions with Web Identiy Providers
+ * Cognito is an identity broker handling all interactions with Web Identity Providers
  * Push synchornisation used to send silent push of user data updates to muliple devices associated with user.
  * Is associated via IAM
  * 1. User <-> User pool <-> Google
    2. User <-> identity pool
    3. User <-> s3 access.
- * User pool relats to the sign-up/sign in to the Application
+ * User pool relates to the sign-up/sign in to the Application
  * Identify pool maps the signed-in users to the temporary controlled access to AWS services in your account.
  * Cognito streams contains the Cognito data.
- * AssumeRoleWithWebIdentiy - Cognito
+ * AssumeRoleWithWebIdentity - Cognito
  * AssumeRoleWithSAML - SAML authentication response.
  * Can check for compromised credentials in the Advanced Security page.
  
