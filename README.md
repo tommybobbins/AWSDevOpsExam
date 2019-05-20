@@ -278,7 +278,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
    * Rolling - AKA In-Place
    * Rolling with additional batches (partial number new servers deployed)
    * Immutable (new servers deployed)
- * Can be customised using yaml/json files. (EBEB)
+ * Can be customised using yaml/json files. (EBEBEXT)
  * Launch configuration OR Environment manifest file, specifies the instance type.
 
         .ebextensions/healthcheck.config
@@ -312,7 +312,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * Lambda Appspec file, must be in root directory special file which tells codedeploy what to execute. yaml/json. Contains parameters for a deploment. Made up of Version, Resources, Hooks and Permissions. (CDAS) Hooks:
      * BeforeAllowTraffc
      * AfterAllowTraffic
- * EC2 Appspec yaml. Version, OS, Files, Hooks. appspec.yml must be in root directory
+ * EC2 Appspec yaml. Version, OS, Files, Hooks. appspec.yml must be in root directory. (ROOTAPPSPEC)
 
         appspec.yml
         code/foo.py
