@@ -359,9 +359,9 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  
  * Codebuild pulls from CodeCommit and can deploy to ECS.
 
-     docker build -t myrepo
-     docker tag mydockerrepo:latest <tag>
-     docker push  # ECS Registry aka ECR
+       docker build -t myrepo
+       docker tag mydockerrepo:latest <tag>
+       docker push  # ECS Registry aka ECR
 
  * ECS has host and destination portmapping.
  * As an alternative, a buildspec.yml can be used and let codebuild do the heavy lifting.
