@@ -336,11 +336,12 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * Revision consists of manifesto, appspec file, app files, executables, config which are placed into a bundle
  * Applications have a unique id for Revision, deployent config and deployment group.
  * In-place upgrade does not work for lambda.
- * Can be deployed on EC2 to bundle code (codedeploy-agent);
- 
-      cd ~/webapp
-      aws deploy create-application --application-name mywebapp
-      aws deploy push --application-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+ * Can be deployed on EC2 to bundle code (codedeploy-agent):
+
+       cd ~/webapp
+       aws deploy create-application --application-name mywebapp
+       aws deploy push --application-name mywebapp --s3-locaiton s3://mybucket/webapp.zip --ignore-hidden-files
+
 
 ### CodeBuild
 
