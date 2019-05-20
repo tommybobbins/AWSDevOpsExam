@@ -136,7 +136,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
 
 ## CloudFront
 
- * To prevent S3 bucket being accessed directly, then CF Restrict bucket access via Origin Acess Identity then update bucket policy. This creates a user in IAM which allows CF to access bucket.
+ * To prevent S3 bucket being accessed directly, then CF Restrict bucket access via Origin Access Identity then update bucket policy. This creates a user in IAM which allows CF to access bucket.
  * Signed URLs/Signed cookies - this allows individual URLS for members only/paid content.
  * Default expiry of pre-signed URL=3600s
  * Then remove public access from bucket.
