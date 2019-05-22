@@ -178,6 +178,9 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
    * SQS
  * Lambda authorizers are to control access to the functions
  * Use CloudWatch Events to trigger a scheduled Lamdba event. (cf cron)
+ * AWS:Serverless:Application - is used for calling embedded applications on S3
+ * AWS:Serverless:Function - is the lambda function.
+
 
 ## API Gateway
 
@@ -194,6 +197,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
    * HTTP 429 status code is returned if these are exceeded.
  * To interact with DynamoDB directly, an *Integration Request* is created.
  * Each time you update an API which includes modifications of methods, integrations, authorizers and anything else other than stage settings, you must redploy the API.
+ * Resource policies are used for deny/allow access for specific IPs
 
 ## AWS Step Functions
 
@@ -373,8 +377,8 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
 
  * This an extension to CloudFormation to define serverless applications and provision in CloudFormation
 
-      sam package # build and upload to S3
-      sam deploy # deploy from S3 to CF
+    aws sam package # build and upload to S3
+    aws sam deploy # deploy from S3 to CF
 
 ## CloudFormation 
 
