@@ -37,7 +37,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * Effect / Action / Resource (EAR)
      * Effect = Allow/Deny
      * Action = What action are we allowing (s3:GetObject)
-     * Resource = ARN
+     * Resource = ARN (who/what this applies to)
 
 ## EC2
  * Instance type: FIGHTDRMCPX
@@ -60,7 +60,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * NoSQL is used over RDMBS when there is a need to query data based on primarily one attribute or the data is unstructured.
  * SSD only, always stored in 3 AZs
  * Can select eventually consistent reads (default) or Strongly consistent reads (ACID). Eventual reads has better performance.
- * Non-relational database. Collection=Table, Document/Item=Row, Key value pairs=Fields. Atributes = Column of data. Supports JSON, HTML and XML data
+ * Non-relational database. Collection=Table, Document/Item=Row, Key value pairs=Fields, Attributes = Column of data. Supports JSON, HTML and XML data
  * Partition key is hashed and provides the location of the data. It should always be unique.
  * Composite key = partition key + sort key.
  * Composite key is not unique.
@@ -83,7 +83,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * Round up first, then number of units (e.g. 17KB read needs 5 read units)
  * Strongly consistent reads need all read capacity units, eventually consistent units get double. 
  * Can use on-demand Dynamo DB capacity, but can cost more than correctly provisioning demand.
- * DAX - Dynamo DB Accelerator / Cache. 10 x Read Performance, which is ideal for read heavy applicaitons for which eventual consistent reads are good enough. Not suitable for write intensive loads.
+ * DAX - Dynamo DB Accelerator / Cache. 10 x Read Performance, which is ideal for read heavy applications for which eventual consistent reads are good enough. Not suitable for write intensive loads.
  * Elasticache + DynamoDB:
    * Lazy loading - Cache when required (c.f varnish).
    * Write through - Cache when written through. Expensive in terms of write speed.
@@ -101,7 +101,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * Time ordered sequence of item level modifications (c.f binlogs).
  * Primary key is recorded.
  * Event Data is held for 24 hours.
- * Can be used as a good event source for lambda. Look for changes which triggers a lamdba function.
+ * Can be used as a good event source for lambda. Look for changes which triggers a Lambda function.
 
 ## S3
 
@@ -115,7 +115,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * SSE-KMS - KMS Service + £ + CloudTrail Audit of key use.
  * SSE-C - Client provides key.
  * Client side encryption - encrypt before upload.
- * To enforce encryption, in PUT request, have a bucket policy looking for the following header: x-amz-server-side-encryption (xasse)
+ * To enforce encryption, in PUT request, have a bucket policy looking for the following header: x-amz-server-side-encryption (XASSE)
    x-amz-server-side-encryption: AES256
    x-amz-server-side-encrpytion: ams:kms
  * CORS - Cross Origin Resouce sharing. Safely allow resource sharing by naming buckets which allow HTTP referer.
@@ -123,7 +123,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * 5GB is the max PUT size.
  * AWS S3 Inventory - tool for returning a list of objects in buckets (503s start getting thrown due to multiple versioning).
  * AllowedMethod (GET/PUT/POST/DELETE/HEAD)
- * AllowedHeader ( xasse )
+ * AllowedHeader ( XASSE )
  
 
 ## RDS 
@@ -234,7 +234,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
        aws kms enable-key-rotation  # rotate keys
        aws kms re-encrypt # destroys plaintext
 
- * Envelope enctyption. Master Key---encrypts--->[ Envelope key/Data Key ]---encrypts--->[[Data]]. The Envelope key is used to decrypt the data.
+ * Envelope encryption. Master Key---encrypts--->[ Envelope key/Data Key ]---encrypts--->[[Data]]. The Envelope key is used to decrypt the data.
  * GenerateDataKey (generates plaintext)
  * GenerateDataKeyWithoutPlaintext
 
@@ -302,7 +302,7 @@ Revision notes for the AWS DevOps Exam 2019. Notes are brief as much of the mate
  * CI continuous integration. Building + Testing + Integrating code from disparate sources.
  * CI Workflow: CodeRepo->BuildManagementSystem->AutomatedBuild->Test Framework->Unit/Functional/Integration tests->Deploy packaged apps->Environment
  * CD Contiuous Delivery- push button to deploy code after test framework
-      Continuous Deployment - automate the button push based on the tests.a
+      Continuous Deployment - automate the button push based on the tests.
  * CodeCommit - AWS Gitlab
  * CodeBuild - 
 
